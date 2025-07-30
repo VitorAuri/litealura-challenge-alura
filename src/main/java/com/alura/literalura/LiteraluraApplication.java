@@ -1,12 +1,11 @@
 package com.alura.literalura;
 
 import com.alura.literalura.menu.UserMenu;
+import com.alura.literalura.menu.UserMenu.Acao;
 import com.alura.literalura.request.Requesitor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.util.Scanner;
 
 @SpringBootApplication
 public class LiteraluraApplication implements CommandLineRunner {
@@ -17,22 +16,31 @@ public class LiteraluraApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		boolean usuarioQuerSair = false;
 		UserMenu menu = new UserMenu();
-		Scanner inputUsuario = new Scanner(System.in);
-		Requesitor novoRequesitor = new Requesitor();
+		Requesitor req = new Requesitor();
 
-
-		while(!usuarioQuerSair) {
-			menu.mostrarOpcoes();
-			int receberInput = inputUsuario.nextInt();
-			menu.receberOpcao(receberInput);
-			if(menu.isUsuarioEscolheuRequesicao()) {
-				novoRequesitor.fazerRequesicao("https://gutendex.com/books");
+		boolean sair = false;
+		while (!sair) {
+			Acao acao = menu.mostrarOpcoes();
+			switch (acao) {
+				case BUSCAR_TODOS -> req.buscarLivros(null);
+				case BUSCAR_POR_TITULO -> {
+					String titulo = menu.lerTermo("título");
+					req.buscarLivros(titulo);
+				}
+				case BUSCAR_POR_AUTOR -> {
+					String autor = menu.lerTermo("autor");
+					req.buscarLivros(autor);
+				}
+				case BUSCAR_POR_AMBOS -> {
+					String titulo = menu.lerTermo("título");
+					String autor  = menu.lerTermo("autor");
+					req.buscarLivros(titulo + " " + autor);
+				}
+				case SAIR -> sair = true;
+				case INVALIDA -> System.out.println("Opção inválida!");
 			}
-			else if (menu.isUsuarioEscolheuSair()) {
-				usuarioQuerSair = true;
-			}
+			System.out.println();
 		}
 	}
 }

@@ -1,41 +1,53 @@
 package com.alura.literalura.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Livro {
-    @JsonAlias("title")
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotNull
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @JsonAlias("authors")
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "livro_autor",
+            joinColumns = @JoinColumn(name = "livro_id"),
+            inverseJoinColumns = @JoinColumn(name = "autor_id")
+    )
     private List<Autor> authors;
 
-    @JsonAlias("languages")
+    @ElementCollection
+    @CollectionTable(
+            name = "livro_languages",
+            joinColumns = @JoinColumn(name = "livro_id")
+    )
+    @Column(name = "language")
     private List<String> languages;
 
-    @JsonAlias("download_count")
-    private int download_count;
+    @Column(name = "download_count")
+    private int downloadCount;
 
-    public String getTitle() {return title;}
-    public void setTitle(String title) {this.title = title;}
+    public Long getId() { return id; }
 
-    public List<Autor> getAuthors() {return authors;}
-    public void setAuthors(List<Autor> authors) {this.authors = authors;}
+    public String getTitle() { return title; }
+    public void setTitle(String title) { this.title = title; }
 
-    public List<String> getLanguages() {return languages;}
-    public void setLanguages(List<String> languages) {this.languages = languages;}
+    public List<Autor> getAuthors() { return authors; }
+    public void setAuthors(List<Autor> authors) { this.authors = authors; }
 
-    public int getDownload_count() {return download_count;}
-    public void setDownload_count(int download_count) {this.download_count = download_count;}
+    public List<String> getLanguages() { return languages; }
+    public void setLanguages(List<String> languages) { this.languages = languages; }
 
-    @Override
-    public String toString() {
-        return "Titulo: " + this.title +
-                "\nAutor: " + this.authors+
-                "\nLinguas: " + this.languages+
-                "\nQuantia de Downloads: " + this.download_count;
-    }
+    public int getDownloadCount() { return downloadCount; }
+    public void setDownloadCount(int download_count) { this.downloadCount = download_count; }
+
 }
