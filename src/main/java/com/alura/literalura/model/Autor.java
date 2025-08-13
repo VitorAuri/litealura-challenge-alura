@@ -28,10 +28,11 @@ public class Autor {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public Integer getBirth_year() { return birthYear; }
-    public void setBirth_year(int birth_year) { this.birthYear = birth_year; }
+    public Integer getBirthYear() { return birthYear; }
+    public void setBirthYear(int birth_year) { this.birthYear = birth_year; }
 
-    public Integer getDeath_year() { return deathYear; }
-    public void setDeath_year(int death_year) { this.deathYear = death_year; }
+    public Integer getDeathYear() { return deathYear; }
+    public void setDeathYear(int death_year) { this.deathYear = death_year; }
+
 
 }

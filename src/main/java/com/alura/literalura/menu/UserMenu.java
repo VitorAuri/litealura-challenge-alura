@@ -9,6 +9,8 @@ public class UserMenu {
         BUSCAR_POR_TITULO,
         BUSCAR_POR_AUTOR,
         BUSCAR_POR_AMBOS,
+        EXIBIR_ESTATISTICAS_IDIOMA,
+        LISTAR_AUTORES_VIVOS_NO_ANO,
         SAIR,
         INVALIDA
     }
@@ -22,7 +24,9 @@ public class UserMenu {
                         "2 - Buscar por título\n" +
                         "3 - Buscar por autor\n" +
                         "4 - Buscar por título e autor\n" +
-                        "5 - Sair\n" +
+                        "5 - Exibir estatísticas de idiomas\n" +
+                        "6 - Listar autores vivos em determinado ano\n" +
+                        "7 - Sair\n" +
                         "Digite sua opção: "
         );
         int opc = scanner.nextInt();
@@ -33,7 +37,9 @@ public class UserMenu {
             case 2 -> Acao.BUSCAR_POR_TITULO;
             case 3 -> Acao.BUSCAR_POR_AUTOR;
             case 4 -> Acao.BUSCAR_POR_AMBOS;
-            case 5 -> Acao.SAIR;
+            case 5 -> Acao.EXIBIR_ESTATISTICAS_IDIOMA;
+            case 6 -> Acao.LISTAR_AUTORES_VIVOS_NO_ANO;
+            case 7 -> Acao.SAIR;
             default -> Acao.INVALIDA;
         };
     }
